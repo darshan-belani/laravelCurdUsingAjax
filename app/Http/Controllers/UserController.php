@@ -46,12 +46,20 @@ class UserController extends Controller
             'email' => 'required',
             'phone' => 'required',
         ]);
+        $imageNam = null;
+        if ($request->image) {
+            $image = $request->file('image');
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $new_name);
+            $imageNam = $new_name;
+        }
         User::updateOrCreate(
             ['id' => $request->id],
             [
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
+                'image' => $imageNam,
                 'password' => Hash::make($request->name)
             ]);
 

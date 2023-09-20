@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('users', UserController::class);
+Route::get('/ajaxDemo', function() {
+    return view('imageUploadWithAjax');
+});
+Route::post('storeData', [UserController::class,'store'])->name('storeAData');
